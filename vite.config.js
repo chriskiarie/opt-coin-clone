@@ -1,17 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
-  base: './', 
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
-  },
+  // Removing base: './' and using the default '/' often fixes Vercel path issues
+  base: '/', 
   build: {
     outDir: 'dist',
-    chunkSizeWarningLimit: 1600, // Helps with larger icon libraries
   }
 })
