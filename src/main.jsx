@@ -20,7 +20,7 @@ const App = () => {
   const [activeTab, setActiveTab] = useState('home');
   const [showBalance, setShowBalance] = useState(true);
 
-  // Components defined inside App to ensure single-file reliability for now
+  // Components defined inside App for deployment reliability
   const HomePage = () => (
     <div className="p-4 pb-24">
       <div className="flex justify-between items-center mb-6">
@@ -173,14 +173,19 @@ const App = () => {
   );
 
   return (
-    <div className="min-h-screen bg-[#0d0e12] text-white">
-      <div className="max-w-md mx-auto min-h-screen relative shadow-2xl bg-[#0d0e12]">
+    <div className="min-h-screen bg-[#0d0e12] text-white selection:bg-yellow-500/30">
+      <div className="max-w-md mx-auto min-h-screen relative shadow-2xl bg-[#0d0e12] border-x border-gray-900/50">
         {activeTab === 'home' && <HomePage />}
         {activeTab === 'markets' && <MarketsPage />}
         {activeTab === 'assets' && <AssetsPage />}
-        {(activeTab === 'futures' || activeTab === 'perpetual') && <div className="p-10 text-center text-gray-500 pt-40">Trading pair engine loading...</div>}
+        {(activeTab === 'futures' || activeTab === 'perpetual') && (
+          <div className="p-10 text-center text-gray-500 pt-40">
+            <div className="animate-pulse mb-4 italic tracking-widest text-yellow-500/50 uppercase">Trading Engine</div>
+            <p className="text-sm">Real-time market depth data loading...</p>
+          </div>
+        )}
 
-        <nav className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-[#1a1c22]/95 backdrop-blur-md border-t border-gray-900 flex justify-around items-center py-2 z-50">
+        <nav className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-[#1a1c22]/95 backdrop-blur-md border-t border-gray-800/50 flex justify-around items-center py-2 z-50 px-2 pb-6">
           {[
             { id: 'home', label: 'Home', icon: Home },
             { id: 'markets', label: 'Markets', icon: BarChart2 },
@@ -190,19 +195,31 @@ const App = () => {
           ].map((tab) => {
             const isActive = activeTab === tab.id;
             return (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className="flex flex-col items-center flex-1">
-                <div className={`p-1.5 rounded-full transition-all ${isActive ? 'bg-yellow-400 text-black shadow-lg shadow-yellow-500/20' : 'text-gray-500'}`}>
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className="flex flex-col items-center flex-1 transition-all active:scale-95">
+                <div className={`p-2 rounded-full transition-all duration-300 ${isActive ? 'bg-yellow-400 text-black shadow-lg shadow-yellow-400/20' : 'text-gray-400 hover:text-gray-200'}`}>
                   <tab.icon size={20} />
                 </div>
-                <span className={`text-[10px] mt-1 font-bold ${isActive ? 'text-yellow-500' : 'text-gray-600'}`}>{tab.label}</span>
+                <span className={`text-[10px] mt-1 font-bold tracking-tight transition-colors ${isActive ? 'text-yellow-400' : 'text-gray-500'}`}>{tab.label}</span>
               </button>
             )
           })}
         </nav>
       </div>
+      <style>{`
+        body { background-color: #000; margin: 0; }
+        ::-webkit-scrollbar { display: none; }
+      `}</style>
     </div>
   );
 };
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+// Standard mounting logic for production builds
+const rootElement = document.getElementById('root');
+if (rootElement) {
+  const root = ReactDOM.createRoot(rootElement);
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+}
