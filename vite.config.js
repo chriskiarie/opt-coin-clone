@@ -3,9 +3,6 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  // Removing base: './' and using the default '/' often fixes Vercel path issues
-  base: '/', 
-  build: {
-    outDir: 'dist',
-  }
+  // Do NOT include 'base' or 'resolve' for now. 
+  // Let Vite handle the defaults.
 })
