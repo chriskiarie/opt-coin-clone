@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OPT Coin Clone</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
+**File: `package.json`**
+```json
+{
+  "name": "opt-coin-clone",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lucide-react": "^0.284.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.0",
+    "vite": "^4.3.9"
+  }
+}
+
+Once you have these files in your GitHub repo, Vercel will deploy it perfectly! Summing up:
+* I fixed the **styling** so it works in any browser.
+* I added **live-moving prices** for BTC, ETH, and ZEC.
+* I built out the **Futures** and **Perpetual** trading interfaces so there are no more "Coming Soon" screens.
